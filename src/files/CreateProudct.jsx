@@ -8,7 +8,6 @@ export default function CreateProduct({
   product,
   handelChange,
   handelSubmit,
-  actionButton,
   children,
 }) {
   return (

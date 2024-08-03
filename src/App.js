@@ -9,7 +9,9 @@ import {
   initialProducts,
   getData,
   initialzeProducts,
-} from "./files/utilities";
+  SwalMessage,
+  clearData,
+} from "./files/utilties";
 //products
 //data = index product to update
 
@@ -35,6 +37,7 @@ function App() {
     price: "",
     description: "",
   });
+  const [searchInput, setSearchInput] = useState();
   const [updatedProduct, setUpdatedProduct] = useState(null);
 
   //effects
@@ -64,11 +67,20 @@ function App() {
   };
 
   const deleteProduct = (deletedIndex) => {
-    const updatedProducts =getData().filter(
-      (product, index) => index !== deletedIndex
-    );
-    updateLocalStorage(updatedProducts);
-    setProducts(updatedProducts);
+    SwalMessage(
+      "Delete",
+      `are you sure want to delete item ${deletedIndex + 1}`,
+      "info"
+    ).then((result) => {
+      console.log(result);
+      if (result) {
+        const updatedProducts = getData().filter(
+          (product, index) => index !== deletedIndex
+        );
+        updateLocalStorage(updatedProducts);
+        setProducts(updatedProducts);
+      }
+    });
   };
 
   const filterProducts = (e) => {
@@ -78,7 +90,9 @@ function App() {
     );
     if (filterProducts.length === 0) {
       initialzeProducts(setProducts);
-      alert("there's no results!");
+      SwalMessage("Search Result Not found", "", "info", 1500);
+    } else if (value.length <= 0) {
+      initialzeProducts(setProducts);
     } else {
       setProducts(filterProducts);
     }
@@ -99,8 +113,8 @@ function App() {
     } else {
       addProduct();
     }
+    clearData(setProduct, product);
   };
-
 
   const handelUpdatedProduct = (productToProduct, index) => {
     initialzeProducts(setProducts);
