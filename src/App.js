@@ -69,7 +69,7 @@ function App() {
   const deleteProduct = (deletedIndex) => {
     SwalMessage(
       "Delete",
-      `are you sure want to delete item ${deletedIndex + 1}`,
+      `are you sure want to delete item ?`,
       "info"
     ).then((result) => {
       console.log(result);
