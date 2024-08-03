@@ -118,6 +118,7 @@ function App() {
         }
       });
     } else {
+      SwalMessage("Product Added!", "", "info", 1000);
       addProduct();
     }
     clearData(setProduct, product);
