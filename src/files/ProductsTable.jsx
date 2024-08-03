@@ -38,7 +38,7 @@ export default function ProductsTable({
                   <td>
                     <button
                       className="btn btn-outline-danger"
-                      onClick={() => deleteProductByIndex(index)}
+                      onClick={() => deleteProductByIndex(item)}
                     >
                       <i className="fa-solid fa-trash"></i>
                     </button>

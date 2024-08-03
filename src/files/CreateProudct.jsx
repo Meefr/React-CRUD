@@ -26,7 +26,7 @@ export default function CreateProduct({
             value={product.name}
             name="name"
             onChange={handelChange}
-            required
+            // required
           />
         </div>
         <div className="mb-3">
@@ -41,7 +41,7 @@ export default function CreateProduct({
             name="cat"
             value={product.cat}
             onChange={handelChange}
-            required
+            // required
           />
         </div>
         <div className="mb-3">
@@ -49,7 +49,7 @@ export default function CreateProduct({
             Product Price
           </label>
           <input
-            required
+            // required
             type="text"
             className="form-control"
             id="product_price"
@@ -67,7 +67,7 @@ export default function CreateProduct({
             className="form-control"
             id="prodct_desc"
             rows={3}
-            required
+            // required
             value={product.description}
             name="description"
             onChange={handelChange}

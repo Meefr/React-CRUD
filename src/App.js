@@ -4,6 +4,8 @@ import SearchBar from "./files/SearchBar";
 import ProductsTable from "./files/ProductsTable";
 import "./App.css";
 import WariningMessage from "./files/WarningMessage";
+import uniqid from 'uniqid';
+
 import {
   updateLocalStorage,
   initialProducts,
@@ -36,6 +38,7 @@ function App() {
     cat: "",
     price: "",
     description: "",
+    id:0,
   });
   const [updatedProduct, setUpdatedProduct] = useState(null);
 
@@ -52,7 +55,7 @@ function App() {
   const updateProduct = () => {
     //copy
     const updatedProducts = products.map((product, index) => {
-      if (index === updatedProductIndex) {
+      if (product.id === updatedProduct.id) {
         return updatedProduct;
       } else {
         return product;
@@ -65,21 +68,19 @@ function App() {
     setUpdatedProductIndex(-1);
   };
 
-  const deleteProduct = (deletedIndex) => {
-    SwalMessage(
-      "Delete",
-      `are you sure want to delete item ?`,
-      "info"
-    ).then((result) => {
-      console.log(result);
-      if (result) {
-        const updatedProducts = getData().filter(
-          (product, index) => index !== deletedIndex
-        );
-        updateLocalStorage(updatedProducts);
-        setProducts(updatedProducts);
+  const deleteProduct = (deletedItem) => {
+    SwalMessage("Delete", `are you sure want to delete item ?`, "info").then(
+      (result) => {
+        console.log(result);
+        if (result) {
+          const updatedProducts = getData().filter(
+            (product) => product.id !== deletedItem.id
+          );
+          updateLocalStorage(updatedProducts);
+          setProducts(updatedProducts);
+        }
       }
-    });
+    );
   };
 
   const filterProducts = (e) => {
@@ -97,11 +98,11 @@ function App() {
     }
   };
 
-  const handelChangeOfProduct = (e) => {
+  const handelChangeOfProduct = (e) => {   
     if (updatedProduct) {
       setUpdatedProduct({ ...updatedProduct, [e.target.name]: e.target.value });
     } else {
-      setProduct({ ...product, [e.target.name]: e.target.value });
+      setProduct({ ...product, [e.target.name]: e.target.value, id:uniqid() });
     }
   };
 
@@ -144,11 +145,7 @@ function App() {
         <button id="create-btn" className="btn btn-primary">
           {updatedProduct ? "Update Product" : "Add Product"}
         </button>
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={clearBtn}
-        >
+        <button className="btn btn-primary" type="button" onClick={clearBtn}>
           Clear
         </button>
       </CreateProduct>
