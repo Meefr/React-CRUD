@@ -1,10 +1,15 @@
 import { useState } from "react";
-import CreateProduct from "./CreateProudct";
-import SearchBar from "./SearchBar";
-import ProductsTable from "./ProductsTable";
+import CreateProduct from "./files/CreateProudct";
+import SearchBar from "./files/SearchBar";
+import ProductsTable from "./files/ProductsTable";
 import "./App.css";
-import WariningMessage from "./WarningMessage";
-
+import WariningMessage from "./files/WarningMessage";
+import {
+  updateLocalStorage,
+  initialProducts,
+  getData,
+  initialzeProducts,
+} from "./files/utilities";
 //products
 //data = index product to update
 
@@ -19,12 +24,6 @@ import WariningMessage from "./WarningMessage";
 // outside return state prev value => state mash
 // use local storage
 
-const key = "products";
-const initialProducts = JSON.parse(localStorage.getItem(key)) || [];
-
-const updateLocalStorage = (newProducts) => {
-  localStorage.setItem(key, JSON.stringify(newProducts));
-};
 function App() {
   //state
   const [products, setProducts] = useState(initialProducts); //lifiting up
@@ -65,7 +64,7 @@ function App() {
   };
 
   const deleteProduct = (deletedIndex) => {
-    const updatedProducts = JSON.parse(localStorage.getItem(key)).filter(
+    const updatedProducts =getData().filter(
       (product, index) => index !== deletedIndex
     );
     updateLocalStorage(updatedProducts);
@@ -78,7 +77,7 @@ function App() {
       product.name.includes(value)
     );
     if (filterProducts.length === 0) {
-      initialProducts();
+      initialzeProducts(setProducts);
       alert("there's no results!");
     } else {
       setProducts(filterProducts);
@@ -104,15 +103,10 @@ function App() {
 
 
   const handelUpdatedProduct = (productToProduct, index) => {
-    initialzeProducts();
+    initialzeProducts(setProducts);
     setUpdatedProduct(productToProduct);
     setUpdatedProductIndex(index);
   };
-
-  const initialzeProducts = () =>
-    setProducts(
-      (prevState) => [...JSON.parse(localStorage.getItem(key))] || []
-    );
   return (
     <>
       <CreateProduct
