@@ -109,11 +109,24 @@ function App() {
   const handelSubmit = (e) => {
     e.preventDefault();
     if (updatedProduct) {
-      updateProduct();
+      SwalMessage(
+        "Update",
+        `are you sure want to Update item ${updatedProduct.name}`,
+        "info"
+      ).then((result) => {
+        if (result) {
+          updateProduct();
+        }
+      });
     } else {
       addProduct();
     }
     clearData(setProduct, product);
+  };
+
+  const clearBtn = () => {
+    clearData(setProduct, product);
+    SwalMessage("Data Cleared", "", "info", 1200);
   };
 
   const handelUpdatedProduct = (productToProduct, index) => {
@@ -130,6 +143,13 @@ function App() {
       >
         <button id="create-btn" className="btn btn-primary">
           {updatedProduct ? "Update Product" : "Add Product"}
+        </button>
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={clearBtn}
+        >
+          Clear
         </button>
       </CreateProduct>
       <SearchBar filterProducts={filterProducts} />

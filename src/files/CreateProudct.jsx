@@ -74,7 +74,6 @@ export default function CreateProduct({
           />
         </div>
         {children}
-        <button className="btn btn-primary">Clear</button>
       </form>
     </div>
   );
