@@ -28,7 +28,7 @@ import {
 
 function App() {
   //state
-  const [products, setProducts] = useState(initialProducts); //lifiting up
+  const [products, setProducts] = useState(initialProducts || []); //lifiting up
   //const [filteredProducts, setFilteredProducts] = useState([]);
   const [updatedProductIndex, setUpdatedProductIndex] = useState(-1);
   const [product, setProduct] = useState({
@@ -37,7 +37,6 @@ function App() {
     price: "",
     description: "",
   });
-  const [searchInput, setSearchInput] = useState();
   const [updatedProduct, setUpdatedProduct] = useState(null);
 
   //effects
